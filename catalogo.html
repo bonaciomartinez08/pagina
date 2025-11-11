@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo - Carpintería Técnica</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0e1;
+      color: #3e2f1c;
+    }
+
+    header {
+      background-color: #a0522d;
+      color: #fff8f0;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2.3em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1em;
+    }
+
+    /* --- NAV --- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: #fff4e6;
+      padding: 12px 25px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #3e2f1c;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #ff8c42;
+      color: #fff;
+    }
+
+    .carrito {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #ff8c42;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.95em;
+    }
+
+    .carrito:hover { background-color: #d96f27; }
+
+    .buscador {
+      text-align: center;
+      margin: 25px 0;
+    }
+
+    #buscar {
+      width: 80%;
+      max-width: 400px;
+      padding: 12px;
+      border: 2px solid #8B4513;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    #buscar:focus {
+      border-color: #A0522D;
+      box-shadow: 0 0 8px rgba(160, 82, 45, 0.5);
+    }
+
+    /* --- CATÁLOGO --- */
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+      padding: 20px;
+      justify-items: center;
+    }
+
+    .producto {
+      background-color: #fff4e6;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 250px;
+      text-align: center;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .producto h3 {
+      margin: 15px 0 10px;
+      color: #a0522d;
+      font-size: 1.1em;
+    }
+
+    .producto p { font-weight: bold; margin-bottom: 10px; }
+
+    .producto button {
+      margin-bottom: 15px;
+      padding: 10px 18px;
+      background-color: #ff8c42;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .producto button:hover {
+      background-color: #d96f27;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* --- MODAL DEL CARRITO --- */
+    #modalCarrito {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 15px;
+    }
+
+    .contenido-carrito {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th { background-color: #ff8c42; color: white; }
+
+    .botones-carrito {
+      text-align: right;
+    }
+
+    .botones-carrito button {
+      background: #a0522d;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-left: 8px;
+    }
+
+    .botones-carrito button:hover { background: #d96f27; }
+
+    footer {
+      background-color: #a0522d;
+      color: #fff8f0;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .carrito {
+        width: 100%;
+        justify-content: center;
+      }
+      #buscar { width: 90%; }
+      .contenido-carrito { padding: 15px; }
+      table, th, td { font-size: 0.9em; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Nuestro Catálogo</h1>
+    <p>Explorá los muebles y trabajos artesanales en madera</p>
+  </header>
+
+  <nav>
+    <div class="menu">
+      <a href="index.html">Inicio</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a href="login.html">Iniciar Sesión</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="qr.html">QR</a>
+    </div>
+    <div class="carrito" onclick="abrirCarrito()">
+      🛒 <span id="resumenCarrito">0 productos - $0</span>
+    </div>
+  </nav>
+
+  <div class="buscador">
+    <input type="text" id="buscar" placeholder="🔍 Buscar producto..." onkeyup="filtrar()">
+  </div>
+
+  <section class="catalogo"></section>
+
+  <!-- Modal del Carrito -->
+  <div id="modalCarrito">
+    <div class="contenido-carrito">
+      <h2>🧾 Tu Carrito</h2>
+      <table id="tablaCarrito">
+        <thead>
+          <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="botones-carrito">
+        <button onclick="cerrarCarrito()">Cerrar</button>
+        <button onclick="generarFactura()">Pagar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p id="copyright"></p>
+  </footer>
+
+  <script>
+    const productos = [
+      { nombre: "Mesa de Roble", precio: 45000, stock: 10, img: "mesa.png" },
+      { nombre: "Silla Artesanal", precio: 12000, stock: 5, img: "silla.png" },
+      { nombre: "Estante Flotante", precio: 8000, stock: 3, img: "estanteria.png" },
+      { nombre: "Marco", precio: 2300, stock: 15, img: "marcos.png" },
+      { nombre: "Placard", precio: 7900, stock: 8, img: "placard.jpg" },
+      { nombre: "Puerta", precio: 8900, stock: 4, img: "puerta.png" },
+      { nombre: "Escritorio", precio: 123000, stock: 2, img: "escritorio.png" },
+      { nombre: "Mesa para Dormitorio", precio: 14000, stock: 6, img: "mesadormitorio.png" },
+      { nombre: "Juego para Jardín", precio: 4000, stock: 7, img: "jardinn.png" },
+      { nombre: "Cocina a medida", precio: 90000, stock: 3, img: "cocina.jpg" },
+      { nombre: "Mueble de Pino", precio: 22000, stock: 9, img: "pino.png" },
+      { nombre: "Taburetes", precio: 1000, stock: 20, img: "taburetes.png" }
+    ];
+
+    let carrito = [];
+
+    function mostrarProductos() {
+      const contenedor = document.querySelector('.catalogo');
+      contenedor.innerHTML = "";
+      productos.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.classList.add('producto');
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.nombre}">
+          <h3>${p.nombre}</h3>
+          <p>$${p.precio}</p>
+          <p>Stock: <span>${p.stock}</span></p>
+          <button onclick="agregarAlCarrito(${i})">Agregar al carrito</button>
+        `;
+        contenedor.appendChild(div);
+      });
+    }
+
+    function filtrar() {
+      const input = document.getElementById("buscar").value.toLowerCase();
+      const productosDiv = document.querySelectorAll(".producto");
+      productosDiv.forEach((div, index) => {
+        const nombre = productos[index].nombre.toLowerCase();
+        div.style.display = nombre.includes(input) ? "block" : "none";
+      });
+    }
+
+    function agregarAlCarrito(i) {
+      const p = productos[i];
+      if (p.stock > 0) {
+        p.stock--;
+        const item = carrito.find(x => x.nombre === p.nombre);
+        if (item) item.cantidad++;
+        else carrito.push({ nombre: p.nombre, precio: p.precio, cantidad: 1 });
+        mostrarProductos();
+        actualizarResumenCarrito();
+      } else alert("❌ Sin stock disponible");
+    }
+
+    function actualizarResumenCarrito() {
+      const total = carrito.reduce((sum, p) => sum + p.precio * p.cantidad, 0);
+      const cant = carrito.reduce((sum, p) => sum + p.cantidad, 0);
+      document.getElementById("resumenCarrito").textContent = `${cant} productos - $${total}`;
+    }
+
+    function abrirCarrito() {
+      const modal = document.getElementById("modalCarrito");
+      const tbody = document.querySelector("#tablaCarrito tbody");
+      tbody.innerHTML = "";
+      carrito.forEach(p => {
+        tbody.innerHTML += `<tr>
+          <td>${p.nombre}</td>
+          <td>${p.cantidad}</td>
+          <td>$${p.precio}</td>
+          <td>$${p.precio * p.cantidad}</td>
+        </tr>`;
+      });
+      modal.style.display = "flex";
+    }
+
+    function cerrarCarrito() {
+      document.getElementById("modalCarrito").style.display = "none";
+    }
+
+    function generarFactura() {
+      if (carrito.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+      }
+      const total = carrito.reduce((sum, p) => sum + p.precio * p.cantidad, 0);
+      const fecha = new Date().toLocaleDateString();
+      let factura = `
+        <h2>🧾 Carpintería Técnica</h2>
+        <p>Fecha: ${fecha}</p>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr>
+          ${carrito.map(p => `
+            <tr><td>${p.nombre}</td><td>${p.cantidad}</td><td>$${p.precio}</td><td>$${p.precio * p.cantidad}</td></tr>
+          `).join("")}
+        </table>
+        <h3>Total: $${total}</h3>
+      `;
+      const nuevaVentana = window.open("", "Factura", "width=700,height=600");
+      nuevaVentana.document.write(factura);
+      nuevaVentana.document.close();
+      carrito = [];
+      actualizarResumenCarrito();
+      cerrarCarrito();
+    }
+
+    window.onload = mostrarProductos;
+    document.getElementById("copyright").textContent = `© Carpintería ${new Date().getFullYear()}`;
+  </script>
+
+</body>
+</html>

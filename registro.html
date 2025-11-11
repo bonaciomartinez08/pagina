@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - Carpintería Técnica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f0e1;
+    }
+
+    nav {
+      background-color: #a0522d;
+      color: white;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #ffd9b3;
+    }
+
+    .registro-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .registro-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .registro-header h1 {
+      color: #a0522d;
+      font-size: 2rem;
+    }
+
+    .registro-form {
+      background: #fff4e6;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .registro-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .registro-form input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #d2b48c;
+    }
+
+    .registro-form button {
+      width: 100%;
+      padding: 12px;
+      background: #ff8c42;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .registro-form button:hover {
+      background: #d96f27;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #fff4e6;
+      color: #3e2f1c;
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
+
+    /* ===== Cartel de Registro Exitoso ===== */
+    .registro-ok {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(240, 229, 210, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .registro-ok.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .registro-ok h1 {
+      font-size: 2.8rem;
+      color: #a0522d;
+      text-shadow: 2px 2px #fff;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ===== Adaptación para celulares ===== */
+    @media (max-width: 600px) {
+      .registro-form { padding: 25px 20px; }
+      .registro-ok h1 { font-size: 2.2rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="login.html">Iniciar Sesión</a>
+    <a href="catalogo.html">Catálogo</a>
+  </nav>
+
+  <section class="registro-section">
+    <div class="registro-header">
+      <h1>Crear Cuenta</h1>
+      <p>Registrate para acceder a todas las funciones</p>
+    </div>
+
+    <form class="registro-form" onsubmit="event.preventDefault(); registrarUsuario();">
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" placeholder="Ingrese un nombre de usuario">
+
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" placeholder="ejemplo@gmail.com">
+
+      <label for="clave">Contraseña:</label>
+      <input type="password" id="clave" placeholder="Cree una contraseña">
+
+      <button type="submit">Registrarse</button>
+    </form>
+  </section>
+
+  <!-- Cartel de registro exitoso -->
+  <div class="registro-ok" id="registroOk">
+    <h1>¡Registro Exitoso!</h1>
+  </div>
+
+  <footer>
+    <p id="copyright"></p>
+  </footer>
+
+  <script>
+    const year = new Date().getFullYear();
+    document.getElementById("copyright").textContent = `© Carpintería ${year}`;
+
+    function registrarUsuario() {
+      const user = document.getElementById("usuario").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const pass = document.getElementById("clave").value.trim();
+      const cartel = document.getElementById("registroOk");
+
+      if (user === "" || email === "" || pass === "") {
+        alert("⚠️ Complete todos los campos");
+      } else {
+        cartel.classList.add("active");
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>

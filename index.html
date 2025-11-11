@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- clave para móviles -->
+  <title>Carpintería Técnica - Inicio</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ======== ESTILOS BASE ======== */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f0e1;
+      color: #3e2f1c;
+    }
+
+    header {
+      background: #a0522d;
+      color: white;
+      text-align: center;
+      padding: 15px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 8px 12px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd9b3;
+    }
+
+    /* ===== MENÚ HAMBURGUESA ===== */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: url('https://picsum.photos/1200/400?wood') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+    }
+
+    .hero-texto {
+      background: rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      padding: 20px 30px;
+      border-radius: 10px;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .hero button {
+      background: #ff8c42;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background: #d96f27;
+    }
+
+    /* ===== SERVICIOS ===== */
+    .servicios {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .servicios h2 {
+      color: #a0522d;
+      margin-bottom: 30px;
+    }
+
+    .tarjetas {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .tarjeta {
+      background: #fff4e6;
+      border-radius: 10px;
+      padding: 20px;
+      width: 280px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+    }
+
+    /* ===== SOBRE NOSOTROS ===== */
+    .sobre {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .sobre h2 {
+      color: #a0522d;
+      margin-bottom: 20px;
+    }
+
+    .sobre p {
+      max-width: 700px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .sobre img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    /* ===== TESTIMONIOS ===== */
+    .testimonios {
+      margin-top: 40px;
+      padding: 20px;
+      background: #fdf3e7;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .testimonios h3 {
+      color: #8B4513;
+      margin-bottom: 20px;
+    }
+
+    .comentario {
+      background: #fff;
+      margin: 10px auto;
+      padding: 15px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 500px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .comentario:hover {
+      transform: scale(1.03);
+      background: #ffeccf;
+    }
+
+    .comentario p {
+      font-style: italic;
+      color: #333;
+    }
+
+    .comentario span {
+      display: block;
+      margin-top: 5px;
+      font-weight: bold;
+      color: #A0522D;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #fff4e6;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #3e2f1c;
+      margin-top: 40px;
+    }
+
+    /* ===== EFECTO SCROLL ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-in-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ======== ADAPTACIÓN PARA CELULARES ======== */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: #a0522d;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 10px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        width: 100%;
+      }
+
+      .hero {
+        padding: 70px 15px;
+      }
+
+      .hero h2 {
+        font-size: 1.7rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .tarjetas {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .tarjeta {
+        width: 90%;
+      }
+
+      .sobre img {
+        width: 100%;
+      }
+
+      .comentario {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ENCABEZADO ===== -->
+  <header>
+    <h1>Carpintería Técnica</h1>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a href="login.html">Login</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="qr.html">QR</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero fade-in">
+    <div class="hero-texto">
+      <h2>Transformamos la madera en arte</h2>
+      <p>Muebles y estructuras de calidad artesanal</p>
+      <button onclick="location.href='catalogo.html'">Ver Catálogo</button>
+    </div>
+  </section>
+
+  <!-- ===== SERVICIOS ===== -->
+  <section class="servicios fade-in">
+    <h2>Nuestros Servicios</h2>
+    <div class="tarjetas">
+      <div class="tarjeta">
+        <h3>🪵 Muebles a medida</h3>
+        <p>Diseños personalizados y exclusivos para tu hogar.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>🛠 Restauración</h3>
+        <p>Renovamos y damos nueva vida a muebles antiguos.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>🏠 Diseño Interior</h3>
+        <p>Asesoramos y fabricamos para que tu espacio sea único.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOBRE NOSOTROS ===== -->
+  <section class="sobre fade-in">
+    <h2>Sobre Nosotros</h2>
+    <p>Somos una carpintería familiar con más de 20 años de experiencia.  
+       Nos especializamos en muebles artesanales y trabajamos cada proyecto con dedicación y detalle.</p>
+    <img src="https://picsum.photos/600/300?wood" alt="Carpintero trabajando">
+  </section>
+
+  <!-- ===== TESTIMONIOS ===== -->
+  <section class="testimonios fade-in">
+    <h3>💬 Opiniones de nuestros clientes</h3>
+    <div class="comentario">
+      <p>"Excelente calidad y atención personalizada."</p>
+      <span>– Juan P.</span>
+    </div>
+    <div class="comentario">
+      <p>"Los muebles quedaron perfectos en mi casa."</p>
+      <span>– María G.</span>
+    </div>
+    <div class="comentario">
+      <p>"Trabajo rápido y muy prolijo."</p>
+      <span>– Carlos R.</span>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p id="copyright"></p>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Copyright dinámico
+    const year = new Date().getFullYear();
+    document.getElementById("copyright").textContent = `© Carpintería ${year}`;
+
+    // Efecto fade-in al hacer scroll
+    const elements = document.querySelectorAll('.fade-in');
+    function checkScroll() {
+      const triggerBottom = window.innerHeight * 0.85;
+      elements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', checkScroll);
+    window.addEventListener('load', checkScroll);
+
+    // Menú hamburguesa
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

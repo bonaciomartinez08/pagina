@@ -1,0 +1,235 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <title>Login - Carpintería Técnica</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <style> 
+    body { 
+      margin: 0; 
+      font-family: 'Segoe UI', sans-serif; 
+      background-color: #f5f0e1; 
+    } 
+ 
+    nav { 
+      background-color: #a0522d; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 10px 20px; 
+      flex-wrap: wrap; 
+    } 
+ 
+    nav a { 
+      color: #fff; 
+      text-decoration: none; 
+      margin: 8px 10px;
+      font-weight: bold;
+    }
+
+    nav a:hover { color: #ffd9b3; }
+
+    .menu-toggle { display: none; flex-direction: column; cursor: pointer; }
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: #fff;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+    .nav-links { display: flex; align-items: center; }
+
+    /* ===== Login ===== */
+    .login-section {
+      display: flex;
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      padding: 60px 20px; 
+    } 
+ 
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-header h1 {
+      font-size: 2.2rem;
+      color: #a0522d;
+    }
+
+    .login-header p {
+      font-size: 1rem;
+      color: #3e2f1c;
+    }
+
+    .login-form {
+      background: #fff4e6;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #d2b48c;
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 12px;
+      background: #ff8c42;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-form button:hover {
+      background: #d96f27;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #fff4e6;
+      color: #3e2f1c;
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
+
+    /* Cartel Bienvenido */
+    .bienvenido {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(240, 229, 210, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .bienvenido.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bienvenido h1 {
+      font-size: 3rem;
+      color: #a0522d;
+      text-shadow: 2px 2px #fff;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ===== Adaptación para celulares ===== */
+    @media (max-width: 600px) {
+      .login-header h1 { font-size: 1.8rem; }
+      .login-form { padding: 25px 20px; }
+      .bienvenido h1 { font-size: 2.2rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a href="login.html" id="link-login">Iniciar Sesión</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="qr.html">QR</a>
+    </div>
+  </nav>
+
+  <section class="login-section">
+    <div class="login-header">
+      <h1>Carpintería Técnica</h1>
+      <p>Iniciá sesión para acceder al catálogo y contactar con nosotros</p>
+    </div>
+
+    <form class="login-form" onsubmit="event.preventDefault(); validarLogin();">
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" placeholder="Ingrese su usuario">
+
+      <label for="clave">Contraseña:</label>
+      <input type="password" id="clave" placeholder="Ingrese su contraseña">
+
+      <div class="recordarme">
+        <input type="checkbox" id="remember">
+        <label for="remember">Recordarme</label>
+      </div>
+
+      <button type="submit">Entrar</button>
+    </form>
+  </section>
+
+  <!-- Cartel de Bienvenido -->
+  <div class="bienvenido" id="bienvenido">
+    <h1>¡Bienvenido!</h1>
+  </div>
+
+  <footer>
+    <p id="copyright"></p>
+  </footer>
+
+  <script>
+    const year = new Date().getFullYear();
+    document.getElementById("copyright").textContent = `© Carpintería ${year}`;
+
+    function validarLogin() {
+      const user = document.getElementById("usuario").value;
+      const pass = document.getElementById("clave").value;
+      const cartel = document.getElementById("bienvenido");
+
+      if (user === "" || pass === "") { 
+        alert("⚠️ Complete todos los campos"); 
+      } else if (user === "alumno" && pass === "1234") {
+        cartel.classList.add("active");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 2000);
+      } else {
+        alert("❌ Usuario o contraseña incorrectos");
+      }
+    }
+
+    // Menú hamburguesa
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

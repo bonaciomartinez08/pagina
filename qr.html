@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Código QR - Carpintería Técnica</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, #fff4e6, #f5f0e1);
+      color: #3e2f1c;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      color: #a0522d;
+      font-size: 2em;
+    }
+
+    .qr-box {
+      background-color: #fff8f0;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .qr-box img {
+      width: 230px;
+      height: 230px;
+      border-radius: 12px;
+    }
+
+    p {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #8b4513;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 25px;
+      text-decoration: none;
+      background: #ff8c42;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      background: #d96f27;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Escaneá para visitar nuestro catálogo 📱</h1>
+
+  <div class="qr-box">
+    <!-- 🔗 Genera tu QR gratis en https://www.qr-code-generator.com/ o https://www.qrserver.com/ -->
+    <!-- Reemplazá el enlace dentro del src con el tuyo -->
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=https://tusitio.com/catalogo.html" alt="Código QR a Catálogo">
+  </div>
+
+  <p>Apuntá tu cámara al código QR para abrir la página</p>
+
+  <a href="catalogo.html">Ir al catálogo</a>
+
+</body>
+</html>
